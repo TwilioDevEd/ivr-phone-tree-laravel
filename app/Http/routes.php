@@ -17,5 +17,10 @@ Route::group(
                 'as' => 'welcome', 'uses' => 'IvrController@showWelcome'
             ]
         );
+        Route::post(
+            '/menu-response', [
+                'as' => 'menu-response', 'uses' => 'IvrController@showMenuResponse'
+            ]
+        );
     }
 );
