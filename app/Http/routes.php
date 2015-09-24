@@ -10,7 +10,12 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::group(
+    ['prefix' => 'ivr'], function () {
+        Route::post(
+            '/welcome', [
+                'as' => 'welcome', 'uses' => 'IvrController@showWelcome'
+            ]
+        );
+    }
+);
