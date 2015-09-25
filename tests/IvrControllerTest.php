@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
-class WelcomeTest extends TestCase
+class IvrControllerTest extends TestCase
 {
     public function testWelcomeResponse()
     {
@@ -17,6 +17,11 @@ class WelcomeTest extends TestCase
         $gatherCommand = $welcomeResponse->Gather;
         $this->assertEquals('Gather', $gatherCommand->getName());
         $this->assertEquals(1, $gatherCommand->children()->count());
+
+        $this->assertEquals('1', $gatherCommand->attributes()['numDigits']);
+        $this->assertEquals(
+            route('menu-response', [], false), $gatherCommand->attributes()['action']
+        );
 
         $playCommand = $welcomeResponse->Gather->Play;
         $this->assertEquals('Play', $playCommand->getName());
