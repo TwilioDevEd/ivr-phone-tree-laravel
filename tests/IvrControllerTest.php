@@ -60,4 +60,23 @@ class IvrControllerTest extends TestCase
             $menuResponse->Gather->attributes()['action']
         );
     }
+
+    public function testNonexistentOption()
+    {
+        $response = $this->call('POST', route('menu-response'), ['Digits' => 99]);
+        $errorResponse = new SimpleXMLElement($response->getContent());
+
+        // Then
+        $this->assertEquals('Returning to the main menu', $errorResponse->Say);
+        $this->assertEquals(route('welcome', [], false), $errorResponse->Redirect);
+    }
+
+    public function testStarReturnToMenu()
+    {
+        $this->call('POST', route('menu-response'), ['Digits' => '*']);
+        $this->assertRedirectedToRoute('welcome');
+
+        $this->call('POST', route('planet-connection'), ['Digits' => '*']);
+        $this->assertRedirectedToRoute('welcome');
+    }
 }
