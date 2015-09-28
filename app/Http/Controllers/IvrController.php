@@ -9,12 +9,12 @@ use Services_Twilio_Twiml;
 
 class IvrController extends Controller
 {
-    private $_thankYouMessage = 'Thank you for calling the ET Phone Home'
-                             . ' Service - the adventurous alien\'s first choice'
-                             . ' in intergalactic travel.';
-
     public function __construct()
     {
+        $this->_thankYouMessage = 'Thank you for calling the ET Phone Home'
+                                . ' Service - the adventurous alien\'s first choice'
+                                . ' in intergalactic travel.';
+
         $this->beforeFilter('@checkForStar');
     }
 
@@ -25,6 +25,7 @@ class IvrController extends Controller
      */
     public function checkForStar($route, $request)
     {
+
         if ($request->input('Digits') === '*') {
             return redirect()->route('welcome');
         }
