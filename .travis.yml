@@ -7,3 +7,5 @@ install:
 env:
   global:
   - APP_ENV=testing
+before_script:
+  - php artisan key:generate
