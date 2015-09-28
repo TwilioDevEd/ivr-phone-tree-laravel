@@ -17,6 +17,9 @@
     <filter>
         <whitelist>
             <directory suffix=".php">app/</directory>
+            <exclude>
+                <file>app/Exceptions/Handler.php</file>
+            </exclude>
         </whitelist>
     </filter>
     <php>
