@@ -12,6 +12,24 @@ class IvrController extends Controller
     private $_thankYouMessage = 'Thank you for calling the ET Phone Home' .
                              ' Service - the adventurous alien\'s first choice' .
                              ' in intergalactic travel.';
+
+    public function __construct()
+    {
+        $this->beforeFilter('@checkForStar');
+    }
+
+    /**
+     * Redirect any request with Digits=* (star) to home menu
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkForStar($route, $request)
+    {
+        if ($request->input('Digits') === '*') {
+            return redirect()->route('welcome');
+        }
+    }
+
     /**
      * Responds with a welcome message with instructions
      *
@@ -55,7 +73,10 @@ class IvrController extends Controller
 
         } else {
             $response = new Services_Twilio_Twiml;
-            $response->say('That is not a valid option in the menu');
+            $response->say(
+                'Returning to the main menu',
+                ['voice' => 'Alice', 'language' => 'en-GB']
+            );
             $response->redirect(route('welcome', [], false));
 
             return $response;
@@ -71,8 +92,14 @@ class IvrController extends Controller
     public function showPlanetConnection(Request $request)
     {
         $response = new Services_Twilio_Twiml;
-        $response->say($this->_thankYouMessage);
-        $response->say("You'll be connected shortly to your planet");
+        $response->say(
+            $this->_thankYouMessage,
+            ['voice' => 'Alice', 'language' => 'en-GB']
+        );
+        $response->say(
+            "You'll be connected shortly to your planet",
+            ['voice' => 'Alice', 'language' => 'en-GB']
+        );
 
         $planetNumbers = [
             '2' => '+12013409910',
@@ -90,13 +117,17 @@ class IvrController extends Controller
             return $response;
         } else {
             $response = new Services_Twilio_Twiml;
-            $response->say('That is not a valid option in the menu');
+            $response->say(
+                'Returning to the main menu',
+                ['voice' => 'Alice', 'language' => 'en-GB']
+            );
             $response->redirect(route('welcome', [], false));
 
             return $response;
         }
 
     }
+
 
     /**
      * Responds with instructions to mothership
@@ -109,9 +140,14 @@ class IvrController extends Controller
             'To get to your extraction point, get on your bike and go down the' .
             ' street. Then Left down an alley. Avoid the police cars. Turn left' .
             ' into an unfinished housing development. Fly over the roadblock. Go' .
-            ' passed the moon. Soon after you will see your mother ship.'
+            ' passed the moon. Soon after you will see your mother ship.',
+            ['voice' => 'Alice', 'language' => 'en-GB']
         );
-        $response->say($this->_thankYouMessage);
+        $response->say(
+            $this->_thankYouMessage,
+            ['voice' => 'Alice', 'language' => 'en-GB']
+        );
+
         $response->hangup();
 
         return $response;
@@ -130,7 +166,8 @@ class IvrController extends Controller
         $gather->say(
             'To call the planet Brodo Asogi, press 2. To call the planet' .
             ' Dugobah, press 3. To call an Oober asteroid to your location,' .
-            ' press 4. To go back to the main menu, press the star key'
+            ' press 4. To go back to the main menu, press the star key',
+            ['voice' => 'Alice', 'language' => 'en-GB']
         );
 
         return $response;

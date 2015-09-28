@@ -12,17 +12,17 @@
 */
 Route::group(
     ['prefix' => 'ivr'], function () {
-        Route::post(
+        Route::any(
             '/welcome', [
                 'as' => 'welcome', 'uses' => 'IvrController@showWelcome'
             ]
         );
-        Route::post(
+        Route::any(
             '/menu-response', [
                 'as' => 'menu-response', 'uses' => 'IvrController@showMenuResponse'
             ]
         );
-        Route::post(
+        Route::any(
             '/planet', [
                 'as' => 'planet-connection',
                 'uses' => 'IvrController@showPlanetConnection'
