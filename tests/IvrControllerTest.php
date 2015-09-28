@@ -63,12 +63,39 @@ class IvrControllerTest extends TestCase
 
     public function testNonexistentOption()
     {
+        // When
         $response = $this->call('POST', route('menu-response'), ['Digits' => 99]);
         $errorResponse = new SimpleXMLElement($response->getContent());
 
         // Then
         $this->assertEquals('Returning to the main menu', $errorResponse->Say);
         $this->assertEquals(route('welcome', [], false), $errorResponse->Redirect);
+    }
+
+    public function testCallPlanet()
+    {
+        // When
+        $response = $this->call('POST', route('planet-connection'), ['Digits' => 2]);
+        $menuResponse = new SimpleXMLElement($response->getContent());
+
+        // Then
+        $this->assertEquals(2, $menuResponse->Say->count());
+        $this->assertEquals(1, $menuResponse->Dial->count());
+    }
+
+    public function testCallUnknownPlanet()
+    {
+        // When
+        $response = $this->call('POST', route('planet-connection'), ['Digits' => 99]);
+        $menuResponse = new SimpleXMLElement($response->getContent());
+
+        // Then
+        $this->assertEquals(1, $menuResponse->Say->count());
+        $this->assertEquals(0, $menuResponse->Dial->count());
+
+        $this->assertEquals(1, $menuResponse->Redirect->count());
+        $this->assertEquals(route('welcome', [], false), $menuResponse->Redirect);
+        $this->assertEquals('Returning to the main menu', $menuResponse->Say);
     }
 
     public function testStarReturnToMenu()
