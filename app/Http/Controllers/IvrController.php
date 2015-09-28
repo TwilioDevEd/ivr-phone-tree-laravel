@@ -9,9 +9,9 @@ use Services_Twilio_Twiml;
 
 class IvrController extends Controller
 {
-    private $_thankYouMessage = 'Thank you for calling the ET Phone Home' .
-                             ' Service - the adventurous alien\'s first choice' .
-                             ' in intergalactic travel.';
+    private $_thankYouMessage = 'Thank you for calling the ET Phone Home'
+                             . ' Service - the adventurous alien\'s first choice'
+                             . ' in intergalactic travel.';
 
     public function __construct()
     {
@@ -136,10 +136,10 @@ class IvrController extends Controller
     {
         $response = new Services_Twilio_Twiml;
         $response->say(
-            'To get to your extraction point, get on your bike and go down the' .
-            ' street. Then Left down an alley. Avoid the police cars. Turn left' .
-            ' into an unfinished housing development. Fly over the roadblock. Go' .
-            ' passed the moon. Soon after you will see your mother ship.',
+            'To get to your extraction point, get on your bike and go down the'
+            . ' street. Then Left down an alley. Avoid the police cars. Turn left'
+            . ' into an unfinished housing development. Fly over the roadblock. Go'
+            . ' passed the moon. Soon after you will see your mother ship.',
             ['voice' => 'Alice', 'language' => 'en-GB']
         );
         $response->say(
