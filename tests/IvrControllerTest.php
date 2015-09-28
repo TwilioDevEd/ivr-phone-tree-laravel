@@ -15,7 +15,7 @@ class IvrControllerTest extends TestCase
         $this->assertEquals(1, $welcomeResponse->children()->count());
 
         $gatherCommand = $welcomeResponse->Gather;
-        $this->assertEquals('Gather', $gatherCommand->getName());
+        $this->assertNotNull($gatherCommand);
         $this->assertEquals(1, $gatherCommand->children()->count());
 
         $this->assertEquals('1', $gatherCommand->attributes()['numDigits']);
@@ -23,7 +23,41 @@ class IvrControllerTest extends TestCase
             route('menu-response', [], false), $gatherCommand->attributes()['action']
         );
 
-        $playCommand = $welcomeResponse->Gather->Play;
-        $this->assertEquals('Play', $playCommand->getName());
+        $this->assertNotNull($welcomeResponse->Gather->Play);
+    }
+
+    public function testMainMenuOptionOne()
+    {
+        // When
+        $response = $this->call('POST', route('menu-response'), ['Digits' => 1]);
+        $menuString = $response->getContent();
+        $menuResponse = new SimpleXMLElement($menuString);
+
+        // Then
+        $this->assertEquals(3, $menuResponse->children()->count());
+        $this->assertNotNull($menuResponse->Say);
+        $this->assertEquals(2, $menuResponse->Say->count());
+        $this->assertNotNull($menuResponse->Hangup);
+    }
+
+    public function testMainMenuOptionTwo()
+    {
+        // When
+        $response = $this->call('POST', route('menu-response'), ['Digits' => 2]);
+        $menuString = $response->getContent();
+        $menuResponse = new SimpleXMLElement($menuString);
+
+        // Then
+        $this->assertNotNull($menuResponse->Gather);
+        $this->assertNotNull($menuResponse->Gather->Say);
+
+        $this->assertEquals(1, $menuResponse->Gather->children()->count());
+        $this->assertEquals(1, $menuResponse->children()->count());
+
+        $this->assertEquals('1', $menuResponse->Gather->attributes()['numDigits']);
+        $this->assertEquals(
+            route('planet-connection', [], false),
+            $menuResponse->Gather->attributes()['action']
+        );
     }
 }

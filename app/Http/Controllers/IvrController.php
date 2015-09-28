@@ -66,7 +66,6 @@ class IvrController extends Controller
 
         $actionExists = isset($optionActions[$selectedOption]);
 
-        // Explicit boolean test to avoid automatic casting
         if ($actionExists) {
             $selectedAction = $optionActions[$selectedOption];
             return $selectedAction;
