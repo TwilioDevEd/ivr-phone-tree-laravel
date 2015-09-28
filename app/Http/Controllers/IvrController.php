@@ -9,8 +9,8 @@ use Services_Twilio_Twiml;
 
 class IvrController extends Controller
 {
-    private $_thankYouMessage = 'Thank you for calling the ET Phone Home' +
-                             ' Service - the adventurous alien\'s first choice' +
+    private $_thankYouMessage = 'Thank you for calling the ET Phone Home' .
+                             ' Service - the adventurous alien\'s first choice' .
                              ' in intergalactic travel.';
     /**
      * Responds with a welcome message with instructions
@@ -41,7 +41,8 @@ class IvrController extends Controller
     public function showMenuResponse(Request $request)
     {
         $optionActions = [
-            '1' => $this->_getReturnInstructions()
+            '1' => $this->_getReturnInstructions(),
+            '2' => $this->_getPlanetsMenu()
         ];
         $selectedOption = $request->input('Digits');
 
@@ -52,7 +53,7 @@ class IvrController extends Controller
             $selectedAction = $optionActions[$selectedOption];
             return $selectedAction;
 
-        } elseif ($actionExists) {
+        } else {
             $response = new Services_Twilio_Twiml;
             $response->say('That is not a valid option in the menu');
             $response->redirect(route('welcome', [], false));
@@ -63,22 +64,55 @@ class IvrController extends Controller
     }
 
     /**
-     * Responds with instructions to mothershop
+     * Responds with a <Dial> to the caller's planet
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showPlanetConnection(Request $request)
+    {
+        $response = new Services_Twilio_Twiml;
+        $response->say($this->_thankYouMessage);
+        $response->say("You'll be connected shortly to your planet");
+
+        $planetNumbers = [
+            '2' => '+12013409910',
+            '3' => '+12013409912',
+            '4' => '+12013409918'
+        ];
+        $selectedOption = $request->input('Digits');
+
+        $planetNumberExists = isset($planetNumbers[$selectedOption]);
+
+        if ($planetNumberExists) {
+            $selectedNumber = $planetNumbers[$selectedOption];
+            $response->dial($selectedNumber);
+
+            return $response;
+        } else {
+            $response = new Services_Twilio_Twiml;
+            $response->say('That is not a valid option in the menu');
+            $response->redirect(route('welcome', [], false));
+
+            return $response;
+        }
+
+    }
+
+    /**
+     * Responds with instructions to mothership
      * @return Services_Twilio_Twiml
      */
     private function _getReturnInstructions()
     {
         $response = new Services_Twilio_Twiml;
         $response->say(
-            'To get to your extraction point, get on your bike and go down the' +
-            ' street. Then Left down an alley. Avoid the police cars. Turn left' +
-            ' into an unfinished housing development. Fly over the roadblock. Go' +
+            'To get to your extraction point, get on your bike and go down the' .
+            ' street. Then Left down an alley. Avoid the police cars. Turn left' .
+            ' into an unfinished housing development. Fly over the roadblock. Go' .
             ' passed the moon. Soon after you will see your mother ship.'
         );
         $response->say($this->_thankYouMessage);
         $response->hangup();
-
-        error_log(var_dump($response));
 
         return $response;
     }
@@ -87,17 +121,18 @@ class IvrController extends Controller
      * Responds with instructions to choose a planet
      * @return Services_Twilio_Twiml
      */
-    private function _getPlanetInstructions()
+    private function _getPlanetsMenu()
     {
         $response = new Services_Twilio_Twiml;
-        $response->gather(
-            ['numDigits' => '1', 'action' => route('planet_list', [], false)]
+        $gather = $response->gather(
+            ['numDigits' => '1', 'action' => route('planet-connection', [], false)]
         );
-        $response->say(
-            'To call the planet Brodo Asogi, press 2. To call the planet' +
-            ' Dugobah, press 3. To call an Oober asteroid to your location,' +
+        $gather->say(
+            'To call the planet Brodo Asogi, press 2. To call the planet' .
+            ' Dugobah, press 3. To call an Oober asteroid to your location,' .
             ' press 4. To go back to the main menu, press the star key'
         );
 
+        return $response;
     }
 }

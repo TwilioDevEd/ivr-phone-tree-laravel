@@ -22,5 +22,11 @@ Route::group(
                 'as' => 'menu-response', 'uses' => 'IvrController@showMenuResponse'
             ]
         );
+        Route::post(
+            '/planet', [
+                'as' => 'planet-connection',
+                'uses' => 'IvrController@showPlanetConnection'
+            ]
+        );
     }
 );
