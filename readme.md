@@ -41,3 +41,10 @@ Run at the top-level directory:
 ```
 $ phpunit --coverage-text
 ```
+
+If your PHP installation doesn't have `xdebug` support then simply run
+the tests without coverage reporting
+
+```
+$ phpunit
+```
