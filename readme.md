@@ -9,14 +9,17 @@ Twilio and Laravel.
 
 1. Clone the repository and `cd` into it.
 1. Install the application's dependencies with [Composer](https://getcomposer.org/)
+
    ```bash
    $ composer update
    ```
 1. Run the application using Artisan.
+
    ```bash
    $ php artisan serve
    ```
 1. Expose the application to the wider Internet using [ngrok](https://ngrok.com/)
+
    ```bash
    $ ngrok 8000 http
    ```
@@ -24,7 +27,6 @@ Twilio and Laravel.
    [Manage Numbers page](https://www.twilio.com/user/account/phone-numbers/incoming)
    on your account. Set the voice URL for the number to
    `http://<your-ngrok-subdomain>.ngrok.io/ivr/welcome`.
-
 1. Grab your phone and call your newly-provisioned number!
 
 ## Dependencies
@@ -35,6 +37,7 @@ This application uses this Twilio helper library:
 ## Run the tests
 
 Run at the top-level directory:
+
 ```
 $ phpunit --coverage-text
 ```
