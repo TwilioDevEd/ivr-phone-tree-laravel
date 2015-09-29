@@ -116,14 +116,14 @@ class IvrController extends Controller
 
             return $response;
         } else {
-            $response = new Services_Twilio_Twiml;
-            $response->say(
+            $errorResponse = new Services_Twilio_Twiml;
+            $errorResponse->say(
                 'Returning to the main menu',
                 ['voice' => 'Alice', 'language' => 'en-GB']
             );
-            $response->redirect(route('welcome', [], false));
+            $errorResponse->redirect(route('welcome', [], false));
 
-            return $response;
+            return $errorResponse;
         }
 
     }
