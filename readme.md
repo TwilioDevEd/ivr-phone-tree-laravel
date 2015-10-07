@@ -11,8 +11,14 @@ Twilio and Laravel.
 1. Install the application's dependencies with [Composer](https://getcomposer.org/)
 
    ```bash
-   $ composer update
+   $ composer install
    ```
+1. Copy `.env.example` to `.env` and generate a new app key:
+
+    ```bash
+    $ cp .env.example .env
+    $ php artisan key:generate
+    ```
 1. Run the application using Artisan.
 
    ```bash
@@ -38,13 +44,13 @@ This application uses this Twilio helper library:
 
 Run at the top-level directory:
 
-```
+```bash
 $ phpunit --coverage-text
 ```
 
 If your PHP installation doesn't have `xdebug` support then simply run
 the tests without coverage reporting
 
-```
+```bash
 $ phpunit
 ```
