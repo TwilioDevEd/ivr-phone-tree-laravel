@@ -30,3 +30,9 @@ Route::group(
         );
     }
 );
+
+Route::get(
+    '/', function () {
+        return response()->view("instructions");
+    }
+);
