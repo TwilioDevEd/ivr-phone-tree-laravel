@@ -6,13 +6,13 @@
       ![Extra Terrestrial Phone Home
       Service](http://howtodocs.s3.amazonaws.com/logo-et-phone2.png)
 
-      This [Laravel](i) sample application is
+      This [Laravel](http://laravel.com/) sample application is
       modeled after a typical call center experience, but with more [Reese's
       Pieces](https://en.wikipedia.org/wiki/Reese%27s_Pieces#ET:_The_Extra-
       Terrestrial).
 
       Stranded aliens can call a phone number and receive instructions on how
-      to get out of earth safely, or call their home planet
+      to get out of Earth safely, or call their home planet
       directly[.](http://bit.ly/asogi) In this tutorial, we'll show you the
       key bits of code to make this work.
 
@@ -77,7 +77,7 @@
       ## Where to send the caller's input
 
       The *gather's* `action` parameter takes an absolute or relative URL as a
-      value - in our case, the `menu-response` route.
+      value — in our case, the `menu-response` route.
 
       When the caller has finished entering digits Twilio will make a
       GET or POST request to this URL including a
@@ -93,7 +93,7 @@
       **See Also:**
       * [Twilio Request parameters](https://www.twilio.com/docs/api/twiml/twilio_request#synchronous-request-parameters)
 
-  .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='54-85')
+  .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='54-85, 131-153')
     :markdown
       ## The Main Menu: Process the caller's selection
 
@@ -103,12 +103,12 @@
       If our caller chooses '1' for directions, we respond with TwiML
       that will [`Say`](https://www.twilio.com/docs/api/twiml/say)
       directions to our caller's extraction point. We use the private
-      `_getReturnInstructions` method to achieve this.
+      `_getReturnInstructions` method (defined below) to achieve this.
 
       If the caller chooses '2' to call her home planet, then we need
       to gather more input from her. We respond with TwiML to handle
       this using the private `_getPlanetsMenu` method, which we'll
-      discuss in the next step
+      discuss in the next step.
 
       If the caller enters anything else we respond with a TwiML
       [`Redirect`](https://www.twilio.com/docs/api/twiml/redirect) to the main
@@ -120,9 +120,9 @@
       * [The TwiML Hangup verb](https://www.twilio.com/docs/api/twiml/hangup)
       * [TwiMl Say: Language Options](https://www.twilio.com/docs/api/twiml/say#attributes-alice)
 
-  .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='159-174,103-107')
+  .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='159-173')
     :markdown
-      ## The Planet Directory: Collect more input from the user
+      ## The Planet Directory: Collect more input from the caller
 
       If our caller chooses to call her home planet we will tell her the planet
       directory. This is akin to a typical "company directory" feature of
@@ -132,10 +132,19 @@
       input. The `action` verb points this time to the `planets` route, which
       will switch our response based on what the caller chooses.
 
-      The TwiML response we return for that route just uses a
+      Let's look at that route next.
+
+  .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='91-128')
+    :markdown
+      ## The Planet Directory: Connect the caller to another number
+
+      In this route, we grab the caller's selection off the request and store
+      it in a variable called `$selectedOption`. We then use a
       [`Dial`](https://www.twilio.com/docs/api/twiml/dial) verb with
       the appropriate phone number to connect our caller to her home
-      planet. The current numbers are hardcoded. They could also be
+      planet.
+
+      The current numbers are hardcoded, but they could also be
       read from a database or from a file.
 
   .step
