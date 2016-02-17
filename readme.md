@@ -3,6 +3,8 @@
 An example application implementing an automated phone line using
 Twilio and Laravel.
 
+[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/ivr-phone-tree/php/laravel)!
+
 [![Build Status](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-laravel.svg?branch=master)](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-laravel)
 
 ## Run the application
