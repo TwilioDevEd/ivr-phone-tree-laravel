@@ -15,19 +15,6 @@ class IvrController extends Controller
                                   ' Service - the adventurous alien\'s first choice' .
                                   ' in intergalactic travel.';
 
-        $this->beforeFilter('@checkForStar');
-    }
-
-    /**
-     * Redirect any request with Digits=* (star) to home menu
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function checkForStar($route, $request)
-    {
-        if ($request->input('Digits') === '*') {
-            return redirect()->route('welcome');
-        }
     }
 
     /**
