@@ -12,8 +12,7 @@
       Terrestrial).
 
       Stranded aliens can call a phone number and receive instructions on how
-      to get out of Earth safely, or call their home planet
-      directly[.](http://bit.ly/asogi) In this tutorial, we'll show you the
+      to get out of earth safely, or call their [home planet](http://bit.ly/asogi) directly. In this tutorial, we'll show you the
       key bits of code to make this work.
 
       To run this sample app yourself, [download the code and follow the
@@ -57,7 +56,7 @@
 
       Our Twilio number is now configured to [send HTTP
       requests](https://www.twilio.com/docs/api/twiml/twilio_request) to this
-      controller method on any incoming voice calls. Our app responds with
+      controller action on any incoming voice calls. Our app responds with
       [TwiML](https://www.twilio.com/docs/api/twiml) to tell Twilio what to do
       in response to the message.
 
@@ -85,8 +84,8 @@
       action-parameters) parameter with the number our caller chose.
 
       After making this request, Twilio will continue the current call using
-      the TwiML received in your response. Any TwiML verbs occuring after a `<Gather>`
-      are unreachable, unless the caller enters no digits.
+      the TwiML received in your response. Any TwiML verbs occuring after a
+      `<Gather>` are unreachable, unless the caller enters no digits.
 
       ---
 
@@ -97,21 +96,18 @@
     :markdown
       ## The Main Menu: Process the caller's selection
 
-      This route handles processing the caller's input. We first
-      attempt to lookup the TwiML for a given option and respond accordingly.
+      This route handles processing the caller's input.
 
-      If our caller chooses '1' for directions, we respond with TwiML
-      that will [`Say`](https://www.twilio.com/docs/api/twiml/say)
-      directions to our caller's extraction point. We use the private
-      `_getReturnInstructions` method (defined below) to achieve this.
+      If our caller chooses '1' for directions, we use a helper method defined
+      below, `getReturnInstructions`, to respond with TwiML that will
+      [`Say`](//www.twilio.com/docs/api/twiml/say) directions to our
+      caller's extraction point.
 
-      If the caller chooses '2' to call her home planet, then we need
-      to gather more input from her. We respond with TwiML to handle
-      this using the private `_getPlanetsMenu` method, which we'll
-      discuss in the next step.
+      If the caller chooses '2' to call her home planet, then we need to
+      gather more input from her. We'll cover this in the next step.
 
       If the caller enters anything else we respond with a TwiML
-      [`Redirect`](https://www.twilio.com/docs/api/twiml/redirect) to the main
+      [`Redirect`](//www.twilio.com/docs/api/twiml/redirect) to the main
       menu.
 
       ---
@@ -138,7 +134,7 @@
     :markdown
       ## The Planet Directory: Connect the caller to another number
 
-      In this route, we grab the caller's selection off the request and store
+      In this controller, we grab the caller's selection off the request and store
       it in a variable called `$selectedOption`. We then use a
       [`Dial`](https://www.twilio.com/docs/api/twiml/dial) verb with
       the appropriate phone number to connect our caller to her home
@@ -170,9 +166,9 @@
 
       ### Did this help?
 
-      Thanks for checking out this tutorial! If you have any feedback to share
-      with us, we'd love to hear it. Tweet
-      [@twilio](http://twitter.com/twilio) to let us know what you think.
+      Thanks for checking out this tutorial! If you have any feedback
+      to share with us, we'd love to hear it.
+      [Contact the Twilio Developer Education Team](mailto:deved-oss@twilio.com) to let us know what you think.
 
 
 

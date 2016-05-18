@@ -17,8 +17,7 @@ modeled after a typical call center experience, but with more <a href="https://e
 Terrestrial">Reese&#39;s
 Pieces</a>.</p>
 <p>Stranded aliens can call a phone number and receive instructions on how
-to get out of Earth safely, or call their home planet
-directly<a href="http://bit.ly/asogi">.</a> In this tutorial, we&#39;ll show you the
+to get out of earth safely, or call their <a href="http://bit.ly/asogi">home planet</a> directly. In this tutorial, we&#39;ll show you the
 key bits of code to make this work.</p>
 <p>To run this sample app yourself, <a href="https://github.com/TwilioDevEd/ivr-phone-tree-
 laravel">download the code and follow the
@@ -50,7 +49,7 @@ config.png" alt="Configuring a Twilio Number"></p>
 </div><div data-file="app/Http/Controllers/IvrController.php" data-highlight="38-53" class="step"><h2 id="respond-to-the-twilio-request-with-twiml">Respond to the Twilio request with TwiML</h2>
 <p>Our Twilio number is now configured to <a href="https://www.twilio.com/docs/api/twiml/twilio_request">send HTTP
 requests</a> to this
-controller method on any incoming voice calls. Our app responds with
+controller action on any incoming voice calls. Our app responds with
 <a href="https://www.twilio.com/docs/api/twiml">TwiML</a> to tell Twilio what to do
 in response to the message.</p>
 <p>In this case we tell Twilio to
@@ -71,26 +70,23 @@ GET or POST request to this URL including a
 <a href="https://www.twilio.com/docs/api/twiml/gather#attributes-
 action-parameters"><code>Digits</code></a> parameter with the number our caller chose.</p>
 <p>After making this request, Twilio will continue the current call using
-the TwiML received in your response. Any TwiML verbs occuring after a <code>&lt;Gather&gt;</code>
-are unreachable, unless the caller enters no digits.</p>
+the TwiML received in your response. Any TwiML verbs occuring after a
+<code>&lt;Gather&gt;</code> are unreachable, unless the caller enters no digits.</p>
 <hr>
 <p><strong>See Also:</strong></p>
 <ul>
 <li><a href="https://www.twilio.com/docs/api/twiml/twilio_request#synchronous-request-parameters">Twilio Request parameters</a></li>
 </ul>
 </div><div data-file="app/Http/Controllers/IvrController.php" data-highlight="54-85, 131-153" class="step"><h2 id="the-main-menu-process-the-caller-s-selection">The Main Menu: Process the caller&#39;s selection</h2>
-<p>This route handles processing the caller&#39;s input. We first
-attempt to lookup the TwiML for a given option and respond accordingly.</p>
-<p>If our caller chooses &#39;1&#39; for directions, we respond with TwiML
-that will <a href="https://www.twilio.com/docs/api/twiml/say"><code>Say</code></a>
-directions to our caller&#39;s extraction point. We use the private
-<code>_getReturnInstructions</code> method (defined below) to achieve this.</p>
-<p>If the caller chooses &#39;2&#39; to call her home planet, then we need
-to gather more input from her. We respond with TwiML to handle
-this using the private <code>_getPlanetsMenu</code> method, which we&#39;ll
-discuss in the next step.</p>
+<p>This route handles processing the caller&#39;s input.</p>
+<p>If our caller chooses &#39;1&#39; for directions, we use a helper method defined
+below, <code>getReturnInstructions</code>, to respond with TwiML that will
+<a href="//www.twilio.com/docs/api/twiml/say"><code>Say</code></a> directions to our
+caller&#39;s extraction point.</p>
+<p>If the caller chooses &#39;2&#39; to call her home planet, then we need to
+gather more input from her. We&#39;ll cover this in the next step.</p>
 <p>If the caller enters anything else we respond with a TwiML
-<a href="https://www.twilio.com/docs/api/twiml/redirect"><code>Redirect</code></a> to the main
+<a href="//www.twilio.com/docs/api/twiml/redirect"><code>Redirect</code></a> to the main
 menu.</p>
 <hr>
 <p><strong>See Also:</strong></p>
@@ -107,7 +103,7 @@ input. The <code>action</code> verb points this time to the <code>planets</code>
 will switch our response based on what the caller chooses.</p>
 <p>Let&#39;s look at that route next.</p>
 </div><div data-file="app/Http/Controllers/IvrController.php" data-highlight="91-128" class="step"><h2 id="the-planet-directory-connect-the-caller-to-another-number">The Planet Directory: Connect the caller to another number</h2>
-<p>In this route, we grab the caller&#39;s selection off the request and store
+<p>In this controller, we grab the caller&#39;s selection off the request and store
 it in a variable called <code>$selectedOption</code>. We then use a
 <a href="https://www.twilio.com/docs/api/twiml/dial"><code>Dial</code></a> verb with
 the appropriate phone number to connect our caller to her home
@@ -127,9 +123,9 @@ your own survey in PHP.</p>
 <p><a href="//www.twilio.com/docs/howto/walkthrough/click-to-call/php/laravel"><strong>Click-to-call</strong></a></p>
 <p>Convert web traffic into phone calls with the click of a button.</p>
 <h3 id="did-this-help-">Did this help?</h3>
-<p>Thanks for checking out this tutorial! If you have any feedback to share
-with us, we&#39;d love to hear it. Tweet
-<a href="http://twitter.com/twilio">@twilio</a> to let us know what you think.</p>
+<p>Thanks for checking out this tutorial! If you have any feedback
+to share with us, we&#39;d love to hear it.
+<a href="mailto:deved-oss@twilio.com">Contact the Twilio Developer Education Team</a> to let us know what you think.</p>
 </div></div>
 <div class="saurus-files" style="display:none;"><textarea class="saurus-file" data-file="app/Http/routes.php" data-mode="php">PD9waHAKCi8qCnwtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp8IEFwcGxpY2F0aW9uIFJvdXRlcwp8LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KfAp8IEhlcmUgaXMgd2hlcmUgeW91IGNhbiByZWdpc3RlciBhbGwgb2YgdGhlIHJvdXRlcyBmb3IgYW4gYXBwbGljYXRpb24uCnwgSXQncyBhIGJyZWV6ZS4gU2ltcGx5IHRlbGwgTGFyYXZlbCB0aGUgVVJJcyBpdCBzaG91bGQgcmVzcG9uZCB0bwp8IGFuZCBnaXZlIGl0IHRoZSBjb250cm9sbGVyIHRvIGNhbGwgd2hlbiB0aGF0IFVSSSBpcyByZXF1ZXN0ZWQuCnwKKi8KUm91dGU6Omdyb3VwKAogICAgWydwcmVmaXgnID0+ICdpdnInXSwgZnVuY3Rpb24gKCkgewogICAgICAgIFJvdXRlOjphbnkoCiAgICAgICAgICAgICcvd2VsY29tZScsIFsKICAgICAgICAgICAgICAgICdhcycgPT4gJ3dlbGNvbWUnLCAndXNlcycgPT4gJ0l2ckNvbnRyb2xsZXJAc2hvd1dlbGNvbWUnCiAgICAgICAgICAgIF0KICAgICAgICApOwogICAgICAgIFJvdXRlOjphbnkoCiAgICAgICAgICAgICcvbWVudS1yZXNwb25zZScsIFsKICAgICAgICAgICAgICAgICdhcycgPT4gJ21lbnUtcmVzcG9uc2UnLCAndXNlcycgPT4gJ0l2ckNvbnRyb2xsZXJAc2hvd01lbnVSZXNwb25zZScKICAgICAgICAgICAgXQogICAgICAgICk7CiAgICAgICAgUm91dGU6OmFueSgKICAgICAgICAgICAgJy9wbGFuZXQnLCBbCiAgICAgICAgICAgICAgICAnYXMnID0+ICdwbGFuZXQtY29ubmVjdGlvbicsCiAgICAgICAgICAgICAgICAndXNlcycgPT4gJ0l2ckNvbnRyb2xsZXJAc2hvd1BsYW5ldENvbm5lY3Rpb24nCiAgICAgICAgICAgIF0KICAgICAgICApOwogICAgfQopOwoKUm91dGU6OmdldCgKICAgICcvJywgZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiByZXNwb25zZSgpLT52aWV3KCJpbnN0cnVjdGlvbnMiKTsKICAgIH0KKTsK</textarea>
 <textarea class="saurus-file" data-file="app/Http/Controllers/IvrController.php" data-mode="php">PD9waHAKCm5hbWVzcGFjZSBBcHBcSHR0cFxDb250cm9sbGVyczsKCnVzZSBJbGx1bWluYXRlXEh0dHBcUmVxdWVzdDsKdXNlIEFwcFxIdHRwXFJlcXVlc3RzOwp1c2UgQXBwXEh0dHBcQ29udHJvbGxlcnNcQ29udHJvbGxlcjsKdXNlIFNlcnZpY2VzX1R3aWxpb19Ud2ltbDsKCmNsYXNzIEl2ckNvbnRyb2xsZXIgZXh0ZW5kcyBDb250cm9sbGVyCnsKICAgIHB1YmxpYyBmdW5jdGlvbiBfX2NvbnN0cnVjdCgpCiAgICB7CiAgICAgICAgJHRoaXMtPl90aGFua1lvdU1lc3NhZ2UgPSAnVGhhbmsgeW91IGZvciBjYWxsaW5nIHRoZSBFVCBQaG9uZSBIb21lJyAuCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAnIFNlcnZpY2UgLSB0aGUgYWR2ZW50dXJvdXMgYWxpZW5cJ3MgZmlyc3QgY2hvaWNlJyAuCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAnIGluIGludGVyZ2FsYWN0aWMgdHJhdmVsLic7CgogICAgICAgICR0aGlzLT5iZWZvcmVGaWx0ZXIoJ0BjaGVja0ZvclN0YXInKTsKICAgIH0KCiAgICAvKioKICAgICAqIFJlZGlyZWN0IGFueSByZXF1ZXN0IHdpdGggRGlnaXRzPSogKHN0YXIpIHRvIGhvbWUgbWVudQogICAgICoKICAgICAqIEByZXR1cm4gXElsbHVtaW5hdGVcSHR0cFxSZXNwb25zZQogICAgICovCiAgICBwdWJsaWMgZnVuY3Rpb24gY2hlY2tGb3JTdGFyKCRyb3V0ZSwgJHJlcXVlc3QpCiAgICB7CiAgICAgICAgaWYgKCRyZXF1ZXN0LT5pbnB1dCgnRGlnaXRzJykgPT09ICcqJykgewogICAgICAgICAgICByZXR1cm4gcmVkaXJlY3QoKS0+cm91dGUoJ3dlbGNvbWUnKTsKICAgICAgICB9CiAgICB9CgogICAgLyoqCiAgICAgKiBSZXNwb25kcyB3aXRoIGEgd2VsY29tZSBtZXNzYWdlIHdpdGggaW5zdHJ1Y3Rpb25zCiAgICAgKgogICAgICogQHJldHVybiBcSWxsdW1pbmF0ZVxIdHRwXFJlc3BvbnNlCiAgICAgKi8KICAgIHB1YmxpYyBmdW5jdGlvbiBzaG93V2VsY29tZSgpCiAgICB7CiAgICAgICAgJHJlc3BvbnNlID0gbmV3IFNlcnZpY2VzX1R3aWxpb19Ud2ltbDsKICAgICAgICAkZ2F0aGVyID0gJHJlc3BvbnNlLT5nYXRoZXIoCiAgICAgICAgICAgIFsnbnVtRGlnaXRzJyA9PiAxLAogICAgICAgICAgICAgJ2FjdGlvbicgPT4gcm91dGUoJ21lbnUtcmVzcG9uc2UnLCBbXSwgZmFsc2UpXQogICAgICAgICk7CgogICAgICAgICRnYXRoZXItPnBsYXkoCiAgICAgICAgICAgICdodHRwOi8vaG93dG9kb2NzLnMzLmFtYXpvbmF3cy5jb20vZXQtcGhvbmUubXAzJywKICAgICAgICAgICAgWydsb29wJyA9PiAzXQogICAgICAgICk7CgogICAgICAgIHJldHVybiAkcmVzcG9uc2U7CiAgICB9CgogICAgLyoqCiAgICAgKiBSZXNwb25kcyB0byBzZWxlY3Rpb24gb2YgYW4gb3B0aW9uIGJ5IHRoZSBjYWxsZXIKICAgICAqCiAgICAgKiBAcmV0dXJuIFxJbGx1bWluYXRlXEh0dHBcUmVzcG9uc2UKICAgICAqLwogICAgcHVibGljIGZ1bmN0aW9uIHNob3dNZW51UmVzcG9uc2UoUmVxdWVzdCAkcmVxdWVzdCkKICAgIHsKICAgICAgICAkb3B0aW9uQWN0aW9ucyA9IFsKICAgICAgICAgICAgJzEnID0+ICR0aGlzLT5fZ2V0UmV0dXJuSW5zdHJ1Y3Rpb25zKCksCiAgICAgICAgICAgICcyJyA9PiAkdGhpcy0+X2dldFBsYW5ldHNNZW51KCkKICAgICAgICBdOwogICAgICAgICRzZWxlY3RlZE9wdGlvbiA9ICRyZXF1ZXN0LT5pbnB1dCgnRGlnaXRzJyk7CgogICAgICAgICRhY3Rpb25FeGlzdHMgPSBpc3NldCgkb3B0aW9uQWN0aW9uc1skc2VsZWN0ZWRPcHRpb25dKTsKCiAgICAgICAgaWYgKCRhY3Rpb25FeGlzdHMpIHsKICAgICAgICAgICAgJHNlbGVjdGVkQWN0aW9uID0gJG9wdGlvbkFjdGlvbnNbJHNlbGVjdGVkT3B0aW9uXTsKICAgICAgICAgICAgcmV0dXJuICRzZWxlY3RlZEFjdGlvbjsKCiAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgJHJlc3BvbnNlID0gbmV3IFNlcnZpY2VzX1R3aWxpb19Ud2ltbDsKICAgICAgICAgICAgJHJlc3BvbnNlLT5zYXkoCiAgICAgICAgICAgICAgICAnUmV0dXJuaW5nIHRvIHRoZSBtYWluIG1lbnUnLAogICAgICAgICAgICAgICAgWyd2b2ljZScgPT4gJ0FsaWNlJywgJ2xhbmd1YWdlJyA9PiAnZW4tR0InXQogICAgICAgICAgICApOwogICAgICAgICAgICAkcmVzcG9uc2UtPnJlZGlyZWN0KHJvdXRlKCd3ZWxjb21lJywgW10sIGZhbHNlKSk7CgogICAgICAgICAgICByZXR1cm4gJHJlc3BvbnNlOwogICAgICAgIH0KCiAgICB9CgogICAgLyoqCiAgICAgKiBSZXNwb25kcyB3aXRoIGEgPERpYWw+IHRvIHRoZSBjYWxsZXIncyBwbGFuZXQKICAgICAqCiAgICAgKiBAcmV0dXJuIFxJbGx1bWluYXRlXEh0dHBcUmVzcG9uc2UKICAgICAqLwogICAgcHVibGljIGZ1bmN0aW9uIHNob3dQbGFuZXRDb25uZWN0aW9uKFJlcXVlc3QgJHJlcXVlc3QpCiAgICB7CiAgICAgICAgJHJlc3BvbnNlID0gbmV3IFNlcnZpY2VzX1R3aWxpb19Ud2ltbDsKICAgICAgICAkcmVzcG9uc2UtPnNheSgKICAgICAgICAgICAgJHRoaXMtPl90aGFua1lvdU1lc3NhZ2UsCiAgICAgICAgICAgIFsndm9pY2UnID0+ICdBbGljZScsICdsYW5ndWFnZScgPT4gJ2VuLUdCJ10KICAgICAgICApOwogICAgICAgICRyZXNwb25zZS0+c2F5KAogICAgICAgICAgICAiWW91J2xsIGJlIGNvbm5lY3RlZCBzaG9ydGx5IHRvIHlvdXIgcGxhbmV0IiwKICAgICAgICAgICAgWyd2b2ljZScgPT4gJ0FsaWNlJywgJ2xhbmd1YWdlJyA9PiAnZW4tR0InXQogICAgICAgICk7CgogICAgICAgICRwbGFuZXROdW1iZXJzID0gWwogICAgICAgICAgICAnMicgPT4gJysxMjAyNDE3MzM3OCcsCiAgICAgICAgICAgICczJyA9PiAnKzEyMDI3MzM2Mzg2JywKICAgICAgICAgICAgJzQnID0+ICcrMTIwMjczMzY2MzcnCiAgICAgICAgXTsKICAgICAgICAkc2VsZWN0ZWRPcHRpb24gPSAkcmVxdWVzdC0+aW5wdXQoJ0RpZ2l0cycpOwoKICAgICAgICAkcGxhbmV0TnVtYmVyRXhpc3RzID0gaXNzZXQoJHBsYW5ldE51bWJlcnNbJHNlbGVjdGVkT3B0aW9uXSk7CgogICAgICAgIGlmICgkcGxhbmV0TnVtYmVyRXhpc3RzKSB7CiAgICAgICAgICAgICRzZWxlY3RlZE51bWJlciA9ICRwbGFuZXROdW1iZXJzWyRzZWxlY3RlZE9wdGlvbl07CiAgICAgICAgICAgICRyZXNwb25zZS0+ZGlhbCgkc2VsZWN0ZWROdW1iZXIpOwoKICAgICAgICAgICAgcmV0dXJuICRyZXNwb25zZTsKICAgICAgICB9IGVsc2UgewogICAgICAgICAgICAkZXJyb3JSZXNwb25zZSA9IG5ldyBTZXJ2aWNlc19Ud2lsaW9fVHdpbWw7CiAgICAgICAgICAgICRlcnJvclJlc3BvbnNlLT5zYXkoCiAgICAgICAgICAgICAgICAnUmV0dXJuaW5nIHRvIHRoZSBtYWluIG1lbnUnLAogICAgICAgICAgICAgICAgWyd2b2ljZScgPT4gJ0FsaWNlJywgJ2xhbmd1YWdlJyA9PiAnZW4tR0InXQogICAgICAgICAgICApOwogICAgICAgICAgICAkZXJyb3JSZXNwb25zZS0+cmVkaXJlY3Qocm91dGUoJ3dlbGNvbWUnLCBbXSwgZmFsc2UpKTsKCiAgICAgICAgICAgIHJldHVybiAkZXJyb3JSZXNwb25zZTsKICAgICAgICB9CgogICAgfQoKCiAgICAvKioKICAgICAqIFJlc3BvbmRzIHdpdGggaW5zdHJ1Y3Rpb25zIHRvIG1vdGhlcnNoaXAKICAgICAqIEByZXR1cm4gU2VydmljZXNfVHdpbGlvX1R3aW1sCiAgICAgKi8KICAgIHByaXZhdGUgZnVuY3Rpb24gX2dldFJldHVybkluc3RydWN0aW9ucygpCiAgICB7CiAgICAgICAgJHJlc3BvbnNlID0gbmV3IFNlcnZpY2VzX1R3aWxpb19Ud2ltbDsKICAgICAgICAkcmVzcG9uc2UtPnNheSgKICAgICAgICAgICAgJ1RvIGdldCB0byB5b3VyIGV4dHJhY3Rpb24gcG9pbnQsIGdldCBvbiB5b3VyIGJpa2UgYW5kIGdvIGRvd24gdGhlJyAuCiAgICAgICAgICAgICcgc3RyZWV0LiBUaGVuIExlZnQgZG93biBhbiBhbGxleS4gQXZvaWQgdGhlIHBvbGljZSBjYXJzLiBUdXJuIGxlZnQnIC4KICAgICAgICAgICAgJyBpbnRvIGFuIHVuZmluaXNoZWQgaG91c2luZyBkZXZlbG9wbWVudC4gRmx5IG92ZXIgdGhlIHJvYWRibG9jay4gR28nIC4KICAgICAgICAgICAgJyBwYXNzZWQgdGhlIG1vb24uIFNvb24gYWZ0ZXIgeW91IHdpbGwgc2VlIHlvdXIgbW90aGVyIHNoaXAuJywKICAgICAgICAgICAgWyd2b2ljZScgPT4gJ0FsaWNlJywgJ2xhbmd1YWdlJyA9PiAnZW4tR0InXQogICAgICAgICk7CiAgICAgICAgJHJlc3BvbnNlLT5zYXkoCiAgICAgICAgICAgICR0aGlzLT5fdGhhbmtZb3VNZXNzYWdlLAogICAgICAgICAgICBbJ3ZvaWNlJyA9PiAnQWxpY2UnLCAnbGFuZ3VhZ2UnID0+ICdlbi1HQiddCiAgICAgICAgKTsKCiAgICAgICAgJHJlc3BvbnNlLT5oYW5ndXAoKTsKCiAgICAgICAgcmV0dXJuICRyZXNwb25zZTsKICAgIH0KCiAgICAvKioKICAgICAqIFJlc3BvbmRzIHdpdGggaW5zdHJ1Y3Rpb25zIHRvIGNob29zZSBhIHBsYW5ldAogICAgICogQHJldHVybiBTZXJ2aWNlc19Ud2lsaW9fVHdpbWwKICAgICAqLwogICAgcHJpdmF0ZSBmdW5jdGlvbiBfZ2V0UGxhbmV0c01lbnUoKQogICAgewogICAgICAgICRyZXNwb25zZSA9IG5ldyBTZXJ2aWNlc19Ud2lsaW9fVHdpbWw7CiAgICAgICAgJGdhdGhlciA9ICRyZXNwb25zZS0+Z2F0aGVyKAogICAgICAgICAgICBbJ251bURpZ2l0cycgPT4gJzEnLCAnYWN0aW9uJyA9PiByb3V0ZSgncGxhbmV0LWNvbm5lY3Rpb24nLCBbXSwgZmFsc2UpXQogICAgICAgICk7CiAgICAgICAgJGdhdGhlci0+c2F5KAogICAgICAgICAgICAnVG8gY2FsbCB0aGUgcGxhbmV0IEJyb2RvIEFzb2dpLCBwcmVzcyAyLiBUbyBjYWxsIHRoZSBwbGFuZXQnIC4KICAgICAgICAgICAgJyBEdWdvYmFoLCBwcmVzcyAzLiBUbyBjYWxsIGFuIE9vYmVyIGFzdGVyb2lkIHRvIHlvdXIgbG9jYXRpb24sJyAuCiAgICAgICAgICAgICcgcHJlc3MgNC4gVG8gZ28gYmFjayB0byB0aGUgbWFpbiBtZW51LCBwcmVzcyB0aGUgc3RhciBrZXknLAogICAgICAgICAgICBbJ3ZvaWNlJyA9PiAnQWxpY2UnLCAnbGFuZ3VhZ2UnID0+ICdlbi1HQiddCiAgICAgICAgKTsKCiAgICAgICAgcmV0dXJuICRyZXNwb25zZTsKICAgIH0KfQo=</textarea>
