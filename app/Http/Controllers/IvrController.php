@@ -45,29 +45,24 @@ class IvrController extends Controller
      */
     public function showMenuResponse(Request $request)
     {
-        $optionActions = [
-            '1' => $this->_getReturnInstructions(),
-            '2' => $this->_getPlanetsMenu()
-        ];
         $selectedOption = $request->input('Digits');
 
-        $actionExists = isset($optionActions[$selectedOption]);
-
-        if ($actionExists) {
-            $selectedAction = $optionActions[$selectedOption];
-            return $selectedAction;
-
-        } else {
-            $response = new Services_Twilio_Twiml;
-            $response->say(
-                'Returning to the main menu',
-                ['voice' => 'Alice', 'language' => 'en-GB']
-            );
-            $response->redirect(route('welcome', [], false));
-
-            return $response;
+        switch ($selectedOption)
+        {
+            case 1:
+                return $this->_getReturnInstructions();
+            case 2:
+                return $this->_getPlanetsMenu();
         }
 
+        $response = new Services_Twilio_Twiml;
+        $response->say(
+            'Returning to the main menu',
+            ['voice' => 'Alice', 'language' => 'en-GB']
+        );
+        $response->redirect(route('welcome', [], false));
+
+        return $response;
     }
 
     /**
