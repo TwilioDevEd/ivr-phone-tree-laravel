@@ -1,4 +1,4 @@
-.chapter(data-title='IVR Phone Tree')
+.chapter(data-title='About this application')
   .step(data-file='app/Http/routes.php')
     :markdown
       ## About this application
@@ -12,7 +12,7 @@
       Terrestrial).
 
       Stranded aliens can call a phone number and receive instructions on how
-      to get out of earth safely, or call their [home planet](http://bit.ly/asogi) directly. In this tutorial, we'll show you the
+      to get out of earth safely or, call their [home planet](http://bit.ly/asogi) directly. In this tutorial, we'll show you the
       key bits of code to make this work.
 
       To run this sample app yourself, [download the code and follow the
@@ -25,12 +25,13 @@
       ---
 
       **See Also:**
+
       * [Laravel Documentation](http://laravel.com/docs/5.1)
       * [twilio-php Quickstart](https://twilio-php.readthedocs.org/en/latest/)
 
   .step(data-file='app/Http/routes.php')
     :markdown
-      ## Respond to the Phone Call
+      ## Answering a Phone Call
 
       To initiate the phone tree, we need to configure one of our Twilio
       numbers to send our web application an HTTP request when we
@@ -52,7 +53,7 @@
 
   .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='38-53')
     :markdown
-      ## Respond to the Twilio request with TwiML
+      ## Responding to the Twilio request with TwiML
 
       Our Twilio number is now configured to [send HTTP
       requests](https://www.twilio.com/docs/api/twiml/twilio_request) to this
@@ -94,7 +95,7 @@
 
   .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='54-85, 131-153')
     :markdown
-      ## The Main Menu: Process the caller's selection
+      ## The Main Menu: Processing the caller's selection
 
       This route handles processing the caller's input.
 
@@ -103,8 +104,8 @@
       [`Say`](//www.twilio.com/docs/api/twiml/say) directions to our
       caller's extraction point.
 
-      If the caller chooses '2' to call her home planet, then we need to
-      gather more input from her. We'll cover this in the next step.
+      If the caller chooses '2' to call their home planet, then we need to
+      gather more input from him/her. We'll cover this in the next step.
 
       If the caller enters anything else we respond with a TwiML
       [`Redirect`](//www.twilio.com/docs/api/twiml/redirect) to the main
@@ -118,23 +119,23 @@
 
   .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='159-173')
     :markdown
-      ## The Planet Directory: Collect more input from the caller
+      ## The Planet's Directory: Collect more input from the caller
 
       If our caller chooses to call her home planet we will tell her the planet
-      directory. This is akin to a typical "company directory" feature of
+      directory. This is similar to a typical "company directory" feature of
       most IVRs.
 
-      In our TwiML response we again use a `Gather` verb to receive our caller's
-      input. The `action` verb points this time to the `planets` route, which
+      In our TwiML response we use a `Gather` verb again to receive our caller's
+      input. The `action` verb points to the `planets` route this time, this
       will switch our response based on what the caller chooses.
 
       Let's look at that route next.
 
   .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='91-128')
     :markdown
-      ## The Planet Directory: Connect the caller to another number
+      ## The Planet's Directory: Connect the caller to another number
 
-      In this controller, we grab the caller's selection off the request and store
+      In this controller, we grab the caller's selection of the request and store
       it in a variable called `$selectedOption`. We then use a
       [`Dial`](https://www.twilio.com/docs/api/twiml/dial) verb with
       the appropriate phone number to connect our caller to her home
@@ -157,7 +158,7 @@
       /automated-survey/php/laravel)
 
       Instantly collect structured data from your users with a survey
-      conducted over a voice call or SMS text messages. Learn how to create
+      conducted over a call or an SMS text message. Learn how to create
       your own survey in PHP.
 
       [**Click-to-call**](//www.twilio.com/docs/howto/walkthrough/click-to-call/php/laravel)
@@ -166,11 +167,6 @@
 
       ### Did this help?
 
-      Thanks for checking out this tutorial! If you have any feedback
+      Thanks for checking this tutorial out! If you have any feedback
       to share with us, we'd love to hear it.
       [Contact the Twilio Developer Education Team](mailto:deved-oss@twilio.com) to let us know what you think.
-
-
-
-
-
