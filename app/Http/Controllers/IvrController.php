@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Services_Twilio_Twiml;
+use Twilio\Twiml;
 
 class IvrController extends Controller
 {
     public function __construct()
     {
         $this->_thankYouMessage = 'Thank you for calling the ET Phone Home' .
-                                  ' Service - the adventurous alien\'s first choice' .
-                                  ' in intergalactic travel.';
+            ' Service - the adventurous alien\'s first choice' .
+            ' in intergalactic travel.';
 
     }
 
@@ -24,10 +24,10 @@ class IvrController extends Controller
      */
     public function showWelcome()
     {
-        $response = new Services_Twilio_Twiml;
+        $response = new Twiml();
         $gather = $response->gather(
             ['numDigits' => 1,
-             'action' => route('menu-response', [], false)]
+                'action' => route('menu-response', [], false)]
         );
 
         $gather->play(
@@ -47,15 +47,14 @@ class IvrController extends Controller
     {
         $selectedOption = $request->input('Digits');
 
-        switch ($selectedOption)
-        {
+        switch ($selectedOption) {
             case 1:
                 return $this->_getReturnInstructions();
             case 2:
                 return $this->_getPlanetsMenu();
         }
 
-        $response = new Services_Twilio_Twiml;
+        $response = new Twiml;
         $response->say(
             'Returning to the main menu',
             ['voice' => 'Alice', 'language' => 'en-GB']
@@ -72,7 +71,7 @@ class IvrController extends Controller
      */
     public function showPlanetConnection(Request $request)
     {
-        $response = new Services_Twilio_Twiml;
+        $response = new Twiml;
         $response->say(
             $this->_thankYouMessage,
             ['voice' => 'Alice', 'language' => 'en-GB']
@@ -97,7 +96,7 @@ class IvrController extends Controller
 
             return $response;
         } else {
-            $errorResponse = new Services_Twilio_Twiml;
+            $errorResponse = new Twiml;
             $errorResponse->say(
                 'Returning to the main menu',
                 ['voice' => 'Alice', 'language' => 'en-GB']
@@ -116,7 +115,7 @@ class IvrController extends Controller
      */
     private function _getReturnInstructions()
     {
-        $response = new Services_Twilio_Twiml;
+        $response = new Twiml;
         $response->say(
             'To get to your extraction point, get on your bike and go down the' .
             ' street. Then Left down an alley. Avoid the police cars. Turn left' .
@@ -140,7 +139,7 @@ class IvrController extends Controller
      */
     private function _getPlanetsMenu()
     {
-        $response = new Services_Twilio_Twiml;
+        $response = new Twiml;
         $gather = $response->gather(
             ['numDigits' => '1', 'action' => route('planet-connection', [], false)]
         );
