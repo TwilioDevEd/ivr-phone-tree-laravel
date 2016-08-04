@@ -51,7 +51,7 @@
       * [Laravel routes](http://laravel.com/docs/5.1/routing)
       * [Using ngrok to test your Twilio webhooks locally](https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html)
 
-  .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='20-39')
+  .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='24-40')
     :markdown
       ## Responding to the Twilio request with TwiML
 
@@ -72,7 +72,7 @@
       * [Gather attributes](https://www.twilio.com/docs/api/twiml/gather#attributes)
       * [Play 'loop' attribute](https://www.twilio.com/docs/api/twiml/play#attributes-loop)
 
-  .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='41-65')
+  .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='47-66')
     :markdown
       ## Where to send the caller's input
 
@@ -94,14 +94,14 @@
       * [Twilio Request parameters](https://www.twilio.com/docs/api/twiml/twilio_request#synchronous-request-parameters)
 
   .step(data-file='app/Http/Controllers/IvrController.php',
-  data-highlight='51-54, 112-154')
+  data-highlight='117-135')
     :markdown
       ## The Main Menu: Processing the caller's selection
 
       This route handles processing the caller's input.
 
       If our caller chooses '1' for directions, we use a helper method defined
-      below, `getReturnInstructions`, to respond with TwiML that will
+      below, `_getReturnInstructions`, to respond with TwiML that will
       [`Say`](//www.twilio.com/docs/api/twiml/say) directions to our
       caller's extraction point.
 
@@ -118,7 +118,7 @@
       * [The TwiML Hangup verb](https://www.twilio.com/docs/api/twiml/hangup)
       * [TwiMl Say: Language Options](https://www.twilio.com/docs/api/twiml/say#attributes-alice)
 
-  .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='136-154')
+  .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='141-155')
     :markdown
       ## The Planet's Directory: Collect more input from the caller
 
@@ -132,7 +132,7 @@
 
       Let's look at that route next.
 
-  .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='67-109')
+  .step(data-file='app/Http/Controllers/IvrController.php', data-highlight='73-110')
     :markdown
       ## The Planet's Directory: Connect the caller to another number
 
