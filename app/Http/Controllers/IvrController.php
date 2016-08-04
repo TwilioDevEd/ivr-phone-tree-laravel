@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use Services_Twilio_Twiml;
 use Twilio\Twiml;
 
 class IvrController extends Controller
@@ -26,8 +25,10 @@ class IvrController extends Controller
     {
         $response = new Twiml();
         $gather = $response->gather(
-            ['numDigits' => 1,
-                'action' => route('menu-response', [], false)]
+            [
+                'numDigits' => 1,
+                'action' => route('menu-response', [], false)
+            ]
         );
 
         $gather->play(
