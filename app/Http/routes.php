@@ -11,7 +11,7 @@
 |
 */
 Route::group(
-    ['prefix' => 'ivr'], function () {
+    ['prefix' => 'ivr', 'middleware' => 'checkforstar'], function () {
         Route::any(
             '/welcome', [
                 'as' => 'welcome', 'uses' => 'IvrController@showWelcome'

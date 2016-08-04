@@ -2,32 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use Services_Twilio_Twiml;
+use Illuminate\Http\Request;
+use Twilio\Twiml;
 
 class IvrController extends Controller
 {
     public function __construct()
     {
         $this->_thankYouMessage = 'Thank you for calling the ET Phone Home' .
-                                  ' Service - the adventurous alien\'s first choice' .
-                                  ' in intergalactic travel.';
+            ' Service - the adventurous alien\'s first choice' .
+            ' in intergalactic travel.';
 
-        $this->beforeFilter('@checkForStar');
-    }
-
-    /**
-     * Redirect any request with Digits=* (star) to home menu
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function checkForStar($route, $request)
-    {
-        if ($request->input('Digits') === '*') {
-            return redirect()->route('welcome');
-        }
     }
 
     /**
@@ -37,10 +23,12 @@ class IvrController extends Controller
      */
     public function showWelcome()
     {
-        $response = new Services_Twilio_Twiml;
+        $response = new Twiml();
         $gather = $response->gather(
-            ['numDigits' => 1,
-             'action' => route('menu-response', [], false)]
+            [
+                'numDigits' => 1,
+                'action' => route('menu-response', [], false)
+            ]
         );
 
         $gather->play(
@@ -58,29 +46,23 @@ class IvrController extends Controller
      */
     public function showMenuResponse(Request $request)
     {
-        $optionActions = [
-            '1' => $this->_getReturnInstructions(),
-            '2' => $this->_getPlanetsMenu()
-        ];
         $selectedOption = $request->input('Digits');
 
-        $actionExists = isset($optionActions[$selectedOption]);
-
-        if ($actionExists) {
-            $selectedAction = $optionActions[$selectedOption];
-            return $selectedAction;
-
-        } else {
-            $response = new Services_Twilio_Twiml;
-            $response->say(
-                'Returning to the main menu',
-                ['voice' => 'Alice', 'language' => 'en-GB']
-            );
-            $response->redirect(route('welcome', [], false));
-
-            return $response;
+        switch ($selectedOption) {
+            case 1:
+                return $this->_getReturnInstructions();
+            case 2:
+                return $this->_getPlanetsMenu();
         }
 
+        $response = new Twiml;
+        $response->say(
+            'Returning to the main menu',
+            ['voice' => 'Alice', 'language' => 'en-GB']
+        );
+        $response->redirect(route('welcome', [], false));
+
+        return $response;
     }
 
     /**
@@ -90,7 +72,7 @@ class IvrController extends Controller
      */
     public function showPlanetConnection(Request $request)
     {
-        $response = new Services_Twilio_Twiml;
+        $response = new Twiml;
         $response->say(
             $this->_thankYouMessage,
             ['voice' => 'Alice', 'language' => 'en-GB']
@@ -115,7 +97,7 @@ class IvrController extends Controller
 
             return $response;
         } else {
-            $errorResponse = new Services_Twilio_Twiml;
+            $errorResponse = new Twiml;
             $errorResponse->say(
                 'Returning to the main menu',
                 ['voice' => 'Alice', 'language' => 'en-GB']
@@ -134,7 +116,7 @@ class IvrController extends Controller
      */
     private function _getReturnInstructions()
     {
-        $response = new Services_Twilio_Twiml;
+        $response = new Twiml;
         $response->say(
             'To get to your extraction point, get on your bike and go down the' .
             ' street. Then Left down an alley. Avoid the police cars. Turn left' .
@@ -158,7 +140,7 @@ class IvrController extends Controller
      */
     private function _getPlanetsMenu()
     {
-        $response = new Services_Twilio_Twiml;
+        $response = new Twiml;
         $gather = $response->gather(
             ['numDigits' => '1', 'action' => route('planet-connection', [], false)]
         );
