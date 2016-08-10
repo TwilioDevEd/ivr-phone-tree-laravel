@@ -55,7 +55,7 @@ class IvrController extends Controller
                 return $this->_getPlanetsMenu();
         }
 
-        $response = new Twiml;
+        $response = new Twiml();
         $response->say(
             'Returning to the main menu',
             ['voice' => 'Alice', 'language' => 'en-GB']
@@ -72,7 +72,7 @@ class IvrController extends Controller
      */
     public function showPlanetConnection(Request $request)
     {
-        $response = new Twiml;
+        $response = new Twiml();
         $response->say(
             $this->_thankYouMessage,
             ['voice' => 'Alice', 'language' => 'en-GB']
@@ -97,7 +97,7 @@ class IvrController extends Controller
 
             return $response;
         } else {
-            $errorResponse = new Twiml;
+            $errorResponse = new Twiml();
             $errorResponse->say(
                 'Returning to the main menu',
                 ['voice' => 'Alice', 'language' => 'en-GB']
@@ -116,7 +116,7 @@ class IvrController extends Controller
      */
     private function _getReturnInstructions()
     {
-        $response = new Twiml;
+        $response = new Twiml();
         $response->say(
             'To get to your extraction point, get on your bike and go down the' .
             ' street. Then Left down an alley. Avoid the police cars. Turn left' .
@@ -140,7 +140,7 @@ class IvrController extends Controller
      */
     private function _getPlanetsMenu()
     {
-        $response = new Twiml;
+        $response = new Twiml();
         $gather = $response->gather(
             ['numDigits' => '1', 'action' => route('planet-connection', [], false)]
         );
