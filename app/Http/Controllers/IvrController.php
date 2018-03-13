@@ -32,7 +32,7 @@ class IvrController extends Controller
         );
 
         $gather->play(
-            'http://howtodocs.s3.amazonaws.com/et-phone.mp3',
+            'https://raw.githubusercontent.com/TwilioDevEd/ivr-phone-tree-servlets/master/et-phone.mp3',
             ['loop' => 3]
         );
 
