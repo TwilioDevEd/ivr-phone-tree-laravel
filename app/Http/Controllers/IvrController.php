@@ -31,8 +31,10 @@ class IvrController extends Controller
             ]
         );
 
-        $gather->play(
-            'https://raw.githubusercontent.com/TwilioDevEd/ivr-phone-tree-servlets/master/et-phone.mp3',
+        $gather->say(
+            'Thanks for calling the E T Phone Home Service.' .
+            'Please press 1 for directions. Press 2 for a ' .
+            'list of planets to call.',
             ['loop' => 3]
         );
 
