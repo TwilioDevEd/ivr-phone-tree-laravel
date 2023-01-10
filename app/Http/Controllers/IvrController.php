@@ -85,9 +85,9 @@ class IvrController extends Controller
         );
 
         $planetNumbers = [
-            '2' => '+12024173378',
-            '3' => '+12027336386',
-            '4' => '+12027336637'
+            '2' => '+19295566487',
+            '3' => '+17262043675',
+            '4' => '+16513582243'
         ];
         $selectedOption = $request->input('Digits');
 
