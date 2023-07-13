@@ -60,7 +60,7 @@ class IvrController extends Controller
         $response = new Twiml();
         $response->say(
             'Returning to the main menu',
-            ['voice' => 'Alice', 'language' => 'en-GB']
+            ['voice' => 'Polly.Amy', 'language' => 'en-GB']
         );
         $response->redirect(route('welcome', [], false));
 
@@ -77,11 +77,11 @@ class IvrController extends Controller
         $response = new Twiml();
         $response->say(
             $this->_thankYouMessage,
-            ['voice' => 'Alice', 'language' => 'en-GB']
+            ['voice' => 'Polly.Amy', 'language' => 'en-GB']
         );
         $response->say(
             "You'll be connected shortly to your planet",
-            ['voice' => 'Alice', 'language' => 'en-GB']
+            ['voice' => 'Polly.Amy', 'language' => 'en-GB']
         );
 
         $planetNumbers = [
@@ -102,7 +102,7 @@ class IvrController extends Controller
             $errorResponse = new Twiml();
             $errorResponse->say(
                 'Returning to the main menu',
-                ['voice' => 'Alice', 'language' => 'en-GB']
+                ['voice' => 'Polly.Amy', 'language' => 'en-GB']
             );
             $errorResponse->redirect(route('welcome', [], false));
 
@@ -124,11 +124,11 @@ class IvrController extends Controller
             ' street. Then Left down an alley. Avoid the police cars. Turn left' .
             ' into an unfinished housing development. Fly over the roadblock. Go' .
             ' passed the moon. Soon after you will see your mother ship.',
-            ['voice' => 'Alice', 'language' => 'en-GB']
+            ['voice' => 'Polly.Amy', 'language' => 'en-GB']
         );
         $response->say(
             $this->_thankYouMessage,
-            ['voice' => 'Alice', 'language' => 'en-GB']
+            ['voice' => 'Polly.Amy', 'language' => 'en-GB']
         );
 
         $response->hangup();
@@ -150,7 +150,7 @@ class IvrController extends Controller
             'To call the planet Brodo Asogi, press 2. To call the planet' .
             ' Dugobah, press 3. To call an Oober asteroid to your location,' .
             ' press 4. To go back to the main menu, press the star key',
-            ['voice' => 'Alice', 'language' => 'en-GB']
+            ['voice' => 'Polly.Amy', 'language' => 'en-GB']
         );
 
         return $response;
