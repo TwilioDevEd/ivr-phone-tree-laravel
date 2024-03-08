@@ -5,3 +5,4 @@ Homestead.json
 coverage-report
 .env
 .idea
+.phpunit.result.cache
