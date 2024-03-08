@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use Twilio\Twiml;
+use Twilio\TwiML\VoiceResponse as Twiml;
 
 class IvrController extends Controller
 {

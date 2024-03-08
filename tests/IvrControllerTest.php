@@ -100,10 +100,8 @@ class IvrControllerTest extends TestCase
 
     public function testStarReturnToMenu()
     {
-        $this->call('POST', route('menu-response'), ['Digits' => '*']);
-        $this->assertRedirectedToRoute('welcome');
+        $this->call('POST', route('menu-response'), ['Digits' => '*'])->assertRedirect('/ivr/welcome');
 
-        $this->call('POST', route('planet-connection'), ['Digits' => '*']);
-        $this->assertRedirectedToRoute('welcome');
+        $this->call('POST', route('planet-connection'), ['Digits' => '*'])->assertRedirect('/ivr/welcome');
     }
 }
