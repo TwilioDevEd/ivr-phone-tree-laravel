@@ -5,18 +5,20 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=8.0.2",
-        "laravel/framework": "^9.0",
-        "twilio/sdk": "^5.0"
+        "php": ">=8.1.0",
+        "laravel/framework": "^10.0",
+        "twilio/sdk": "^5.0",
+        "symfony/mailgun-mailer": "^7.0",
+        "symfony/http-client": "^7.0",
+        "symfony/postmark-mailer": "^7.0"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "^9.0",
+        "phpunit/phpunit": "^10.0",
         "symfony/dom-crawler": "^5.0",
         "symfony/css-selector": "^5.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "filp/whoops": "~2.0",
-        "fideloper/proxy": "^4.0"
+        "filp/whoops": "~2.0"
     },
     "autoload": {
         "classmap": [
@@ -56,5 +58,6 @@
         "allow-plugins": {
             "kylekatarnls/update-helper": true
         }
-    }
+    },
+    "minimum-stability": "stable"
 }
