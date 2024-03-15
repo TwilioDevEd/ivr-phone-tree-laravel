@@ -6,3 +6,5 @@ coverage-report
 .env
 .idea
 .phpunit.result.cache
+.phpunit.xml.bak
+test-results
