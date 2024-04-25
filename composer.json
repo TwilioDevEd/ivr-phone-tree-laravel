@@ -7,7 +7,7 @@
     "require": {
         "php": ">=8.1.0",
         "laravel/framework": "^10.0",
-        "twilio/sdk": "^5.0",
+        "twilio/sdk": "^8.0",
         "symfony/mailgun-mailer": "^7.0",
         "symfony/http-client": "^7.0",
         "symfony/postmark-mailer": "^7.0"
